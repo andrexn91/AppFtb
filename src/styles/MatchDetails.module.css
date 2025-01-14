@@ -1,0 +1,43 @@
+.detailsContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .detailsCard {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+  
+  .detailsCard h2 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .detailsCard p {
+    margin: 5px 0;
+  }
+  
+  .joinButton {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .joinButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .joinButton:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
