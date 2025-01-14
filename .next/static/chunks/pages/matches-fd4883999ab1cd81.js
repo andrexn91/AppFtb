@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[999],{5872:(_,n,e)=>{(window.__NEXT_P=window.__NEXT_P||[]).push(["/matches",function(){return e(6252)}])},6252:()=>{}},_=>{var n=n=>_(_.s=n);_.O(0,[636,593,792],()=>n(5872)),_N_E=_.O()}]);
