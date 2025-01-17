@@ -1,1 +1,10 @@
 node_modules/
+src/components/Dashboard.tsx
+src/components/Footer.tsx
+src/components/ProfileCard.tsx
+src/pages/matches.tsx
+src/pages/signup.tsx
+src/types/match.ts
+src/types/user.ts
+src/utils/auth.ts
+src/utils/validators.ts
