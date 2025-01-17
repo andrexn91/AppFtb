@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getMatches, addMatch, deleteMatch } from "../utils/api";
 import styles from "../styles/AdminPanel.module.css";
 
 type Match = {
@@ -9,25 +10,11 @@ type Match = {
   maxParticipants: number;
 };
 
-const initialMatches: Match[] = [
-  {
-    id: 1,
-    date: "2025-01-10",
-    time: "18:00",
-    location: "Campo Sportivo Centro",
-    maxParticipants: 10,
-  },
-  {
-    id: 2,
-    date: "2025-01-12",
-    time: "20:00",
-    location: "Stadio Comunale",
-    maxParticipants: 10,
-  },
-];
-
 const AdminPanel: React.FC = () => {
-  const [matches, setMatches] = useState<Match[]>(initialMatches);
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [newMatch, setNewMatch] = useState<Match>({
     id: 0,
     date: "",
@@ -36,14 +23,51 @@ const AdminPanel: React.FC = () => {
     maxParticipants: 10,
   });
 
-  const handleAddMatch = () => {
-    setMatches([...matches, { ...newMatch, id: matches.length + 1 }]);
-    setNewMatch({ id: 0, date: "", time: "", location: "", maxParticipants: 10 });
+  useEffect(() => {
+    // Recupera tutte le partite dall'API
+    const fetchMatches = async () => {
+      try {
+        const data = await getMatches();
+        setMatches(data);
+        setLoading(false);
+      } catch (err) {
+        setError("Errore nel caricamento delle partite.");
+        setLoading(false);
+      }
+    };
+    fetchMatches();
+  }, []);
+
+  const handleAddMatch = async () => {
+    try {
+      await addMatch(newMatch);
+      const updatedMatches = await getMatches();
+      setMatches(updatedMatches);
+      setNewMatch({ id: 0, date: "", time: "", location: "", maxParticipants: 10 });
+      alert("Partita aggiunta con successo!");
+    } catch (err) {
+      alert("Errore nell'aggiunta della partita.");
+    }
   };
 
-  const handleDeleteMatch = (id: number) => {
-    setMatches(matches.filter((match) => match.id !== id));
+  const handleDeleteMatch = async (id: number) => {
+    try {
+      await deleteMatch(id);
+      const updatedMatches = await getMatches();
+      setMatches(updatedMatches);
+      alert("Partita eliminata con successo!");
+    } catch (err) {
+      alert("Errore nell'eliminazione della partita.");
+    }
   };
+
+  if (loading) {
+    return <p>Caricamento partite in corso...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className={styles.adminPanelContainer}>

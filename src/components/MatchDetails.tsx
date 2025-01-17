@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { getMatchById, bookMatch } from "../utils/api";
 import styles from "../styles/MatchDetails.module.css";
 
 type Match = {
@@ -12,43 +13,58 @@ type Match = {
   description: string;
 };
 
-const matchData: Match[] = [
-  {
-    id: 1,
-    date: "2025-01-10",
-    time: "18:00",
-    location: "Campo Sportivo Centro",
-    participants: 8,
-    maxParticipants: 10,
-    description: "Partita amichevole aperta a tutti i livelli.",
-  },
-  {
-    id: 2,
-    date: "2025-01-12",
-    time: "20:00",
-    location: "Stadio Comunale",
-    participants: 5,
-    maxParticipants: 10,
-    description: "Partita serale per giocatori esperti.",
-  },
-];
-
 const MatchDetails: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const match = matchData.find((m) => m.id === Number(id));
+  const [match, setMatch] = useState<Match | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Recupera i dettagli della partita dall'API simulata
+    const fetchMatch = async () => {
+      if (id) {
+        try {
+          const data = await getMatchById(Number(id));
+          if (data) {
+            setMatch(data);
+          } else {
+            setError("Partita non trovata.");
+          }
+          setLoading(false);
+        } catch (err) {
+          setError("Errore nel caricamento dei dettagli della partita.");
+          setLoading(false);
+        }
+      }
+    };
+    fetchMatch();
+  }, [id]);
+
+  const handleBooking = async () => {
+    if (!match) return;
+
+    try {
+      await bookMatch(match.id);
+      setMatch({ ...match, participants: match.participants + 1 });
+      alert("Prenotazione effettuata con successo!");
+    } catch (err) {
+      alert("Errore nella prenotazione: " + err);
+    }
+  };
+
+  if (loading) {
+    return <p>Caricamento dettagli della partita in corso...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!match) {
     return <p>Partita non trovata.</p>;
   }
-
-  const handleJoin = () => {
-    if (match.participants < match.maxParticipants) {
-      alert(`Ti sei prenotato alla partita ID: ${match.id}`);
-      // Qui si può aggiungere una chiamata API per salvare la prenotazione
-    }
-  };
 
   return (
     <div className={styles.detailsContainer}>
@@ -70,7 +86,7 @@ const MatchDetails: React.FC = () => {
         <button
           className={styles.joinButton}
           disabled={match.participants >= match.maxParticipants}
-          onClick={handleJoin}
+          onClick={handleBooking}
         >
           {match.participants >= match.maxParticipants ? "Partita Piena" : "Prenotati"}
         </button>

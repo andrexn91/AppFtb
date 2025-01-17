@@ -79,3 +79,49 @@ type Match = {
     });
   };
   
+  
+
+type User = {
+  id: number;
+  email: string;
+  role: "user" | "admin";
+};
+
+let currentUser: User | null = null;
+
+const mockUsers: User[] = [
+  { id: 1, email: "user@example.com", role: "user" },
+  { id: 2, email: "admin@example.com", role: "admin" },
+];
+
+// Simula il login
+export const login = async (email: string, password: string): Promise<User> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const user = mockUsers.find((u) => u.email === email);
+      if (user) {
+        currentUser = user;
+        resolve(user);
+      } else {
+        reject("Credenziali non valide.");
+      }
+    }, 500);
+  });
+};
+
+// Simula il logout
+export const logout = async (): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      currentUser = null;
+      resolve();
+    }, 500);
+  });
+};
+
+// Ottieni l'utente corrente
+export const getCurrentUser = async (): Promise<User | null> => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(currentUser), 500);
+  });
+};
