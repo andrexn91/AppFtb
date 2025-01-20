@@ -1,12 +1,1 @@
-{
-  "/admin": "pages/admin.js",
-  "/": "pages/index.js",
-  "/login": "pages/login.js",
-  "/match/[id]": "pages/match/[id].js",
-  "/matches": "pages/matches.js",
-  "/profile": "pages/profile.js",
-  "/signup": "pages/signup.js",
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js"
-}
+{"/admin":"pages/admin.html","/":"pages/index.html","/login":"pages/login.html","/match/[id]":"pages/match/[id].html","/matches":"pages/matches.html","/profile":"pages/profile.html","/signup":"pages/signup.html","/_error":"pages/_error.js","/_app":"pages/_app.js","/_document":"pages/_document.js","/404":"pages/404.html"}

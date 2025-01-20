@@ -7,6 +7,7 @@ type Match = {
   date: string;
   time: string;
   location: string;
+  participants: number; //Aggiunto
   maxParticipants: number;
 };
 
@@ -20,6 +21,7 @@ const AdminPanel: React.FC = () => {
     date: "",
     time: "",
     location: "",
+    participants: 0, //Riga aggiunta
     maxParticipants: 10,
   });
 
@@ -43,7 +45,7 @@ const AdminPanel: React.FC = () => {
       await addMatch(newMatch);
       const updatedMatches = await getMatches();
       setMatches(updatedMatches);
-      setNewMatch({ id: 0, date: "", time: "", location: "", maxParticipants: 10 });
+      setNewMatch({ id: 0, date: "", time: "", location: "", participants: 0, maxParticipants: 10 });
       alert("Partita aggiunta con successo!");
     } catch (err) {
       alert("Errore nell'aggiunta della partita.");

@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Match } from "../types/match";
 import { getMatchById, bookMatch } from "../utils/api";
 import styles from "../styles/MatchDetails.module.css";
 
-type Match = {
-  id: number;
-  date: string;
-  time: string;
-  location: string;
-  participants: number;
-  maxParticipants: number;
-  description: string;
-};
 
 const MatchDetails: React.FC = () => {
   const router = useRouter();

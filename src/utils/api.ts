@@ -1,13 +1,6 @@
+import { Match } from "../types/match";
+
 // Funzioni simulate per gestire le partite e le prenotazioni
-type Match = {
-    id: number;
-    date: string;
-    time: string;
-    location: string;
-    participants: number;
-    maxParticipants: number;
-    description?: string;
-  };
   
   let matchData: Match[] = [
     {
