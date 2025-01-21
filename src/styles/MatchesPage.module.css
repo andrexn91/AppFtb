@@ -1,19 +1,44 @@
 .matchesPage {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .matchesPage h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .matchesPage p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.matchCard {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+.fullMatch {
+  background-color: #ffe6e6; /* Rosso chiaro per le partite piene */
+  border: 1px solid #ff4d4d; /* Bordo rosso */
+}
+
+.fullMatch h2 {
+  color: #d32f2f; /* Rosso scuro per il titolo */
+}
+
+.joinButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.joinButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

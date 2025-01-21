@@ -5,6 +5,7 @@ export type Match = {
     location: string;
     participants: number;
     maxParticipants: number;
+    registeredUsers: string[]; // Nomi degli utenti registrati
     description?: string; // Mantieni description opzionale
   };
   

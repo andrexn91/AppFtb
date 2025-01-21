@@ -2,26 +2,26 @@ import { Match } from "../types/match";
 
 // Funzioni simulate per gestire le partite e le prenotazioni
   
-  let matchData: Match[] = [
-    {
-      id: 1,
-      date: "2025-01-10",
-      time: "18:00",
-      location: "Campo Sportivo Centro",
-      participants: 8,
-      maxParticipants: 10,
-      description: "Partita amichevole aperta a tutti i livelli.",
-    },
-    {
-      id: 2,
-      date: "2025-01-12",
-      time: "20:00",
-      location: "Stadio Comunale",
-      participants: 5,
-      maxParticipants: 10,
-      description: "Partita serale per giocatori esperti.",
-    },
-  ];
+let matchData: Match[] = [
+  {
+    id: 1,
+    date: "2025-01-10",
+    time: "18:00",
+    location: "Campo Sportivo Centro",
+    participants: 8,
+    maxParticipants: 10,
+    registeredUsers: ["Mario Rossi", "Luigi Bianchi", "Anna Verdi"], // Utenti già registrati
+  },
+  {
+    id: 2,
+    date: "2025-01-12",
+    time: "20:00",
+    location: "Stadio Comunale",
+    participants: 5,
+    maxParticipants: 10,
+    registeredUsers: ["Carla Neri", "Franco Viola"], // Utenti già registrati
+  },
+];
   
   // Simula il recupero di tutte le partite
   export const getMatches = async (): Promise<Match[]> => {
@@ -58,13 +58,14 @@ import { Match } from "../types/match";
   };
   
   // Simula la prenotazione di un posto in una partita
-  export const bookMatch = async (id: number): Promise<void> => {
+  export const bookMatch = async (id: number): Promise<Match[]> => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const match = matchData.find((match) => match.id === id);
+  
         if (match && match.participants < match.maxParticipants) {
-          match.participants += 1;
-          resolve();
+          match.participants += 1; // Incrementa il contatore nell'API
+          resolve(matchData); // Restituisce l'elenco aggiornato
         } else {
           reject("Impossibile prenotare: partita piena o non trovata.");
         }
